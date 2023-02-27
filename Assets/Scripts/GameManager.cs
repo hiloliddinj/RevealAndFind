@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,9 +15,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] Sprite successImage, defaultHeart;
     [SerializeField] Sprite initialButtonSprite;
 
-    [SerializeField] GameObject youWin, youLoose, startPanel;
+    [SerializeField] GameObject youWin, youLoose, startPanel, instractionsPanel;
 
     [SerializeField] AudioSource startGamePressedAudio;
+
+    private List<int> prizesList = new() {15, 15, 15, 25, 25, 25, 5, 5, 5};
+    private List<int> randomPrizeList;
+
 
     private readonly List<int> foundPrizeList = new();
     int counter;
@@ -28,14 +31,20 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        startPanel.SetActive(true);
         counter = 0;
+        RandomizePrize();
     }
 
-    //// Update is called once per frame
-    //void Update()
-    //{
+    void RandomizePrize()
+    {
+        randomPrizeList = ShuflleList(prizesList, 9);
 
-    //}
+        for (int i = 0; i < buttonObjectsList.Count; i++)
+        {
+            buttonObjectsList[i].GetComponent<ButtonSc>().prize = randomPrizeList[i];
+        }
+    }
 
     public void ButtonPressed(int index)
     {
@@ -112,6 +121,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayAgain()
     {
+        RandomizePrize();
         startGamePressedAudio.Play();
         youWin.SetActive(false);
         youLoose.SetActive(false);
@@ -122,7 +132,7 @@ public class GameManager : MonoBehaviour
             myButton.interactable = true;
             myButton.enabled = true;
             gO.GetComponent<Image>().sprite = initialButtonSprite;
-            gO.GetComponentInChildren<TextMeshProUGUI>().text = "$$$";
+            gO.GetComponentInChildren<TextMeshProUGUI>().text = "";
             counter = 0;
             prizeCounter = 0;
         }
@@ -137,7 +147,25 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         startGamePressedAudio.Play();
+        instractionsPanel.SetActive(false);
+        RandomizePrize();
+    }
+
+    public void ShowInstractionPanel()
+    {
         startPanel.SetActive(false);
+        instractionsPanel.SetActive(true);
+    }
+
+
+
+    private List<T> ShuflleList<T>(List<T> inputList, int count) {
+        List<T> outputList = new();
+        for (int i = 0; i < count; i++) {
+            int index = UnityEngine.Random.Range(0, inputList.Count);
+            outputList.Add(inputList[index]);
+        }
+        return outputList;
     }
 
 
