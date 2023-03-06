@@ -5,7 +5,6 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-
     [SerializeField] List<GameObject> buttonObjectsList;
     [SerializeField] List<GameObject> indicatorsList;
 
@@ -167,6 +166,4 @@ public class GameManager : MonoBehaviour
         }
         return outputList;
     }
-
-
 }
