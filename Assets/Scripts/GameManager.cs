@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Sprite disabledButtonImage;
 
+    
+
     [SerializeField] Sprite errorImage;
     [SerializeField] Sprite successImage, defaultHeart;
     [SerializeField] Sprite initialButtonSprite;
