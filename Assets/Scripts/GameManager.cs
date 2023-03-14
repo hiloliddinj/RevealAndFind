@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
             buttonObjectsList[index].GetComponent<Button>().interactable = false;
 
             int foundPrize = buttonObjectsList[index].GetComponent<ButtonSc>().prize;
-            buttonObjectsList[index].GetComponentInChildren<TextMeshProUGUI>().text = foundPrize.ToString() + "$";
+            buttonObjectsList[index].GetComponentInChildren<TextMeshProUGUI>().text = "$" + foundPrize.ToString();
 
             buttonObjectsList[index].GetComponent<Image>().sprite = disabledButtonImage;
 
